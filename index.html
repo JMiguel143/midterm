@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enrollees Management</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+    <center>
+    <h3>ADD NEW ENROLEE</h3>
+    </center>
+    <form id="enrolleeForm">
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" required><br><br>
+
+        <label for="middle_name">Middle Name:</label>
+        <input type="text" id="middle_name"><br><br>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br>
+
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" required><br><br>
+
+        <label for="course">Course:</label>
+        <input type="text" id="course" required><br><br>
+
+        <label for="school_year">School Year:</label>
+        <input type="text" id="school_year" required><br><br>
+
+        <input type="hidden" id="editIndex" value="-1">
+        <button type="button" onclick="addOrUpdateEnrollee()">Add Enrollee</button>
+    </form>
+    <h3>Search Enrollees</h3>
+    <center>
+<input type="text" id="searchInput" placeholder="Search by name" oninput="searchEnrollees()">
+</center>
+
+    <h2>Enrollees Management</h2>
+    <table id="enrolleesTable">
+        <tr>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Course</th>
+            <th>School Year</th>
+            <th>Action</th>
+        </tr>
+    </table>
+</body>
+</html>
+
+    <script>
+        function searchEnrollees() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const filteredEnrollees = enrollees.filter(enrollee => {
+        const fullName = `${enrollee.firstName} ${enrollee.middleName} ${enrollee.lastName}`.toLowerCase();
+        return fullName.includes(searchInput);
+    });
+    updateTable(filteredEnrollees);
+}
+
+        
+        let enrollees = [];
+
+        function addOrUpdateEnrollee() {
+            const firstName = document.getElementById("first_name").value;
+            const middleName = document.getElementById("middle_name").value;
+            const lastName = document.getElementById("last_name").value;
+            const age = document.getElementById("age").value;
+            const gender = document.getElementById("gender").value;
+            const birthday = document.getElementById("birthday").value;
+            const course = document.getElementById("course").value;
+            const schoolYear = document.getElementById("school_year").value;
+            const editIndex = document.getElementById("editIndex").value;
+
+            const enrollee = {
+                firstName,
+                middleName,
+                lastName,
+                age,
+                gender,
+                birthday,
+                course,
+                schoolYear,
+            };
+
+            if (editIndex === "-1") {
+                enrollees.push(enrollee);
+            } else {
+                enrollees[editIndex] = enrollee;
+                document.getElementById("editIndex").value = "-1"; 
+            }
+
+            updateTable();
+            document.getElementById("enrolleeForm").reset();
+        }
+
+        function updateTable(filteredEnrollees) {
+    const table = document.getElementById("enrolleesTable");
+    table.innerHTML = `<tr>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Birthday</th>
+        <th>Course</th>
+        <th>School Year</th>
+        <th>Action</th>
+    </tr>`;
+
+    const enrolleesToDisplay = filteredEnrollees || enrollees;
+
+    for (let i = 0; i < enrolleesToDisplay.length; i++) {
+        const enrollee = enrolleesToDisplay[i];
+        const row = table.insertRow(-1);
+
+        for (let prop in enrollee) {
+            const cell = row.insertCell();
+            cell.innerHTML = enrollee[prop];
+        }
+
+        const actionCell = row.insertCell();
+        const editButton = document.createElement("button");
+        editButton.innerHTML = "Edit";
+        editButton.onclick = () => editEnrollee(i);
+        actionCell.appendChild(editButton);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "Delete";
+        deleteButton.onclick = () => deleteEnrollee(i);
+        actionCell.appendChild(deleteButton);
+    }
+}
+
+
+        function editEnrollee(index) {
+            const enrollee = enrollees[index];
+            document.getElementById("first_name").value = enrollee.firstName;
+            document.getElementById("middle_name").value = enrollee.middleName;
+            document.getElementById("last_name").value = enrollee.lastName;
+            document.getElementById("age").value = enrollee.age;
+            document.getElementById("gender").value = enrollee.gender;
+            document.getElementById("birthday").value = enrollee.birthday;
+            document.getElementById("course").value = enrollee.course;
+            document.getElementById("school_year").value = enrollee.schoolYear;
+            document.getElementById("editIndex").value = index;
+        }
+
+        function deleteEnrollee(index) {
+            enrollees.splice(index, 1);
+            updateTable();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('image.jpg'); 
+    
+}
+h3{
+    background-color: #3498db;
+    margin: 20px; 
+    color: #fff; 
+    padding: 10px;
+    text-align: center;
+    
+}
+
+h2 {
+    background-color: #3498db; 
+    color: #fff; 
+    padding: 10px;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff; 
+}
+#searchInput {
+    width: 150px;
+    height: 30px; 
+    font-size: 14px; 
+    padding: 5px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+}
+
+
+th, td {
+    border: 1px solid #bdc3c7;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #3498db;
+    color: #fff; 
+}
+
+tr:hover {
+    background-color: #ecf0f1; 
+}
+
+form {
+    background-color: #fff; 
+    padding: 5%;
+    width: 50%;
+    margin: 20%;
+    border-radius: 5%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #bdc3c7; 
+    border-radius: 4px;
+}
+
+select {
+    padding: 6px;
+}
+
+button {
+    background-color: #3498db; 
+    color: #fff; 
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5dade2;
+}
